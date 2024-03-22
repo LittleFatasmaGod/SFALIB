@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright (C) 2021, 5DPLAY Game Studio
  * All rights reserved.
  * 
