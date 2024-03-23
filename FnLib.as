@@ -81,6 +81,8 @@ const _TYPE_BULLET          :String = "Bullet";
 const _TYPE_FIGHTER_ATTACKER:String = "FighterAttacker";
 const _TYPE_UNKNOWN         :String = "UNKNOWN";
 
+const _NOT_APPLICABLE:String = "[N/A]";
+
 /**
  * 初始化
  */
@@ -244,7 +246,7 @@ function get $target():* {
  */
 function get $name():String {
 	if (!$self) {
-		return "N/A";
+		return _NOT_APPLICABLE;
 	}
 	
 	return $self.getDisplay().name;
