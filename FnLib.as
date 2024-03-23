@@ -266,6 +266,13 @@ function get $hpRate():Number {
 	return $owner.hp / $owner.hpMax;
 }
 
+/**
+ * 判断是否是 P1
+ */
+function isP1():Boolean {
+	return $self.team.id == 1;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
