@@ -20,9 +20,9 @@
 
 var isPrint:Boolean = false;
 
-const VERSION:String = "0.0.1";			// 版本
+const VERSION:String = "0.0.2";			// 版本
 const AUTHOR :String = "5dplay";		// 作者
-const DATE   :String = "2024.03.22";	// 日期
+const DATE   :String = "2024.03.23";	// 日期
 
 
 
@@ -165,6 +165,64 @@ function get $self():* {
 	}
 	
 	return _self;
+}
+
+var _owner:* = null;
+/**
+ * 获得最顶主人类引用，始终返回 FighterMain
+ */
+function get $owner():* {
+	if (_owner) {
+		return _owner;
+	}
+	
+	var tOwner:* = null;
+	
+	/**
+	 * FighterMain 直接返回
+	 * Assister 的 owner 只可能是 FighterMain
+	 * Bullet 的 owner 可能是 FighterMain Assister FighterAttacker
+	 * FighterAttacker 的 owner 可能是 FighterMain Assister
+	 */
+	 
+	if ($self is FighterMain) {
+		_owner = $self;
+	}
+	else if ($self is Assister) {
+		_owner = $self.getOwner();
+	}
+	else if ($self is Bullet) {
+		tOwner = $self.owner;
+		
+		if (tOwner is FighterMain) {
+			_owner = tOwner;
+		}
+		else if (tOwner is Assister) {
+			_owner = tOwner.getOwner();
+		}
+		else if (tOwner is FighterAttacker) {
+			tOwner = tOwner.getOwner();
+			
+			if (tOwner is FighterMain) {
+				_owner = tOwner;
+			}
+			else if (tOwner is Assister) {
+				_owner = tOwner.getOwner();
+			}
+		}
+	}
+	else if ($self is FighterAttacker) {
+		tOwner = $self.getOwner();
+		
+		if (tOwner is FighterMain) {
+			_owner = tOwner;
+		}
+		else if (tOwner is Assister) {
+			_owner = tOwner.getOwner();
+		}
+	}
+	
+	return _owner;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
