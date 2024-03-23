@@ -56,7 +56,6 @@ var GameCtrl:Class = getDefinitionByName(PKG_NAME_CTRL_GAMECTRLS + "GameCtrl");
 // 私有变量及函数，以【_】开头，不推荐使用，仅作为【FnLib.as】文件内部使用
 
 import flash.display.DisplayObject;
-import flash.utils.getQualifiedClassName;
 
 // 自身引用
 var _this:MovieClip = this;
