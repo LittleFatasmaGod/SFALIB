@@ -259,6 +259,13 @@ function get $hpDiff():int {
 	return Math.abs($owner.hp - $target.hp);
 }
 
+/**
+ * 获得自身血量比例
+ */
+function get $hpRate():Number {
+	return $owner.hp / $owner.hpMax;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
