@@ -242,6 +242,13 @@ function get $target():* {
 	return _target as FighterMain;
 }
 
+/**
+ * 获得双方血量差
+ */
+function get $hpDiff():int {
+	return Math.abs($owner.hp - $target.hp);
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
