@@ -111,6 +111,8 @@ function _print():void {
 var _selfType:String = null;
 /**
  * 获取自身类型
+ * 
+ * @return 返回自身类型
  */
 function _getSelfType():String {
 	if (_selfType) {
@@ -145,6 +147,8 @@ function _getSelfType():String {
 var _self:* = null;
 /**
  * 获得自身类引用
+ * 
+ * @return 返回自身 Class
  */
 function get $self():* {
 	if (_self) {
@@ -172,6 +176,8 @@ function get $self():* {
 var _owner:* = null;
 /**
  * 获得最顶主人类引用，始终返回 FighterMain
+ * 
+ * @return 返回玩家 FighterMain
  */
 function get $owner():* {
 	if (_owner) {
@@ -230,6 +236,8 @@ function get $owner():* {
 var _target:* = null;
 /**
  * 获得对手主人类引用，始终返回 FighterMain
+ * 
+ * @return 返回对手 FighterMain
  */
 function get $target():* {
 	if (_target) {
@@ -243,6 +251,8 @@ function get $target():* {
 
 /**
  * 获得自身名称
+ * 
+ * @return 返回自身名称
  */
 function get $name():String {
 	if (!$self) {
@@ -254,6 +264,8 @@ function get $name():String {
 
 /**
  * 获得双方血量差
+ * 
+ * @return 返回双方血量差
  */
 function get $hpDiff():int {
 	return Math.abs($owner.hp - $target.hp);
@@ -261,6 +273,8 @@ function get $hpDiff():int {
 
 /**
  * 获得自身血量比例
+ * 
+ * @return 返回自身血量比例
  */
 function get $hpRate():Number {
 	return $owner.hp / $owner.hpMax;
@@ -268,6 +282,8 @@ function get $hpRate():Number {
 
 /**
  * 判断是否是 P1
+ * 
+ * @return 返回自身是否是 玩家1 操作
  */
 function isP1():Boolean {
 	return $self.team.id == 1;
