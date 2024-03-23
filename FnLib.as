@@ -79,7 +79,7 @@ const _TYPE_FIGHTER_MAIN    :String = "FighterMain";
 const _TYPE_ASSISTER        :String = "Assister";
 const _TYPE_BULLET          :String = "Bullet";
 const _TYPE_FIGHTER_ATTACKER:String = "FighterAttacker";
-const _TYPE_UNKNOWN         :String = "UNKNOWN";
+const _TYPE_UNKNOWN         :String = "Unknown";
 
 const _NOT_APPLICABLE:String = "[N/A]";
 
