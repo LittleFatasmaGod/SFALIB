@@ -172,7 +172,7 @@ function get $owner():* {
 	 * Bullet 的 owner 可能是 FighterMain Assister FighterAttacker
 	 * FighterAttacker 的 owner 可能是 FighterMain Assister
 	 */
-	 
+	
 	if ($self is FighterMain) {
 		_owner = $self;
 	}
