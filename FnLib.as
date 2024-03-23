@@ -18,6 +18,9 @@
  * 
  */
 
+// 最新地址
+// https://raw.githubusercontent.com/5DPLAY-Game-Studio/FnLib/main/FnLib.as
+
 const IS_PRINT:Boolean = false;
 
 const VERSION:String = "0.0.2";			// 版本
