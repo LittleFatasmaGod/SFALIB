@@ -21,6 +21,15 @@
 // 最新地址
 // https://raw.githubusercontent.com/5DPLAY-Game-Studio/FnLib/main/FnLib.as
 
+//////////////////////////////////////////////////////////////////////////////////////////
+// 导入包
+
+import flash.display.DisplayObject;
+import flash.display.MovieClip;
+import flash.utils.getDefinitionByName;
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
 const IS_PRINT:Boolean = false;
 
 const VERSION:String = "0.0.2";			// 版本
@@ -42,8 +51,6 @@ const PKG_NAME_CTRL_GAMECTRLS:String = "net.play5d.game.bvn.ctrl.game_ctrls::"
 //////////////////////////////////////////////////////////////////////////////////////////
 // 获取类引用
 
-import flash.utils.getDefinitionByName;
-
 var FighterMain    :Class = getDefinitionByName(PKG_NAME_FIGHTER + _TYPE_FIGHTER_MAIN    );
 var Assister       :Class = getDefinitionByName(PKG_NAME_FIGHTER + _TYPE_ASSISTER        );
 var Bullet         :Class = getDefinitionByName(PKG_NAME_FIGHTER + _TYPE_BULLET          );
@@ -57,9 +64,6 @@ var GameCtrl:Class = getDefinitionByName(PKG_NAME_CTRL_GAMECTRLS + "GameCtrl");
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // 私有变量及函数，以【_】开头，不推荐使用，仅作为【FnLib.as】文件内部使用
-
-import flash.display.DisplayObject;
-import flash.display.MovieClip;
 
 // 自身引用
 var _this:MovieClip = this as MovieClip;
@@ -128,8 +132,6 @@ function _getSelfType():String {
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // 公有函数，对外接口
-
-import flash.display.DisplayObject;
 
 var _self:* = null;
 /**
