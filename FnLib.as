@@ -225,6 +225,20 @@ function get $owner():* {
 	return _owner;
 }
 
+var _target:* = null;
+/**
+ * 获得对手主人类引用，始终返回 FighterMain
+ */
+function get $target():* {
+	if (_target) {
+		return _target;
+	}
+	
+	_target = $owner.getCurrentTarget();
+	
+	return _target as FighterMain;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
