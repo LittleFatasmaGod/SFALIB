@@ -18,7 +18,7 @@
  * 
  */
 
-var isPrint:Boolean = false;
+const IS_PRINT:Boolean = false;
 
 const VERSION:String = "0.0.2";			// 版本
 const AUTHOR :String = "5dplay";		// 作者
@@ -78,14 +78,14 @@ function _initialize():void {
  * 打印自身信息
  */
 function _print():void {
-	if (!isPrint) {
+	if (!IS_PRINT) {
 		return;
 	}
 	
 	var text:String = 
 		"[FnLib]::{\n\t" + 
 			"Ver:" + VERSION + ", Author:" + AUTHOR + ", Date:" + DATE + "\n\t" + 
-			"SelfType:" + _getSelfType() + "\n" + 
+			"SelfType:" + _getSelfType() + ", Name:" + $name + "\n" + 
 		"}"
 	;
 	
@@ -103,32 +103,17 @@ function _getSelfType():String {
 	
 	_selfType = _TYPE_UNKNOWN;
 	
-	var gameStage:* = GameCtrl.I.gameState;
-	var gameSprites:* = gameStage.getGameSprites();
-	
-	for each (var sp:* in gameSprites) {
-		var d:DisplayObject = sp.getDisplay();
-		
-		// 等于 this 可获取 FighterAttacker Bullet Assister
-		// 等于 this.parent 可获取 FighterMain
-		if (d == _this || d == _this.parent) {
-			var className:String = getQualifiedClassName(sp);
-			
-			if (className.indexOf(_TYPE_FIGHTER_MAIN) != -1) {
-				_selfType = _TYPE_FIGHTER_MAIN;
-			}
-			else if (className.indexOf(_TYPE_ASSISTER) != -1) {
-				_selfType = _TYPE_ASSISTER;
-			}
-			else if (className.indexOf(_TYPE_BULLET) != -1) {
-				_selfType = _TYPE_BULLET;
-			}
-			else if (className.indexOf(_TYPE_FIGHTER_ATTACKER) != -1) {
-				_selfType = _TYPE_FIGHTER_ATTACKER;
-			}
-			
-			break;
-		}
+	if ($self is FighterMain) {
+		_selfType = _TYPE_FIGHTER_MAIN;
+	}
+	else if ($self is Assister) {
+		_selfType = _TYPE_ASSISTER;
+	}
+	else if ($self is Bullet) {
+		_selfType = _TYPE_BULLET;
+	}
+	else if ($self is FighterAttacker) {
+		_selfType = _TYPE_FIGHTER_ATTACKER;
 	}
 	
 	return _selfType;
@@ -240,6 +225,17 @@ function get $target():* {
 	_target = $owner.getCurrentTarget();
 	
 	return _target as FighterMain;
+}
+
+/**
+ * 获得自身名称
+ */
+function get $name():String {
+	if (!$self) {
+		return "N/A";
+	}
+	
+	return $self.getDisplay().name;
 }
 
 /**
