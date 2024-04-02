@@ -121,17 +121,29 @@ function _getSelfType():String {
 	
 	_selfType = _TYPE_UNKNOWN;
 	
-	if ($self is FighterMain) {
-		_selfType = _TYPE_FIGHTER_MAIN;
-	}
-	else if ($self is Assister) {
-		_selfType = _TYPE_ASSISTER;
-	}
-	else if ($self is Bullet) {
-		_selfType = _TYPE_BULLET;
-	}
-	else if ($self is FighterAttacker) {
-		_selfType = _TYPE_FIGHTER_ATTACKER;
+	var typeArr:Array = [{
+			cls :  FighterMain, 
+			type: _TYPE_FIGHTER_MAIN
+		}, {
+			cls :  Assister, 
+			type: _TYPE_ASSISTER
+		}, {
+			cls :  Bullet, 
+			type: _TYPE_BULLET
+		}, {
+			cls :  FighterAttacker, 
+			type: _TYPE_FIGHTER_ATTACKER
+		}
+	];
+	
+	for each (var o:Object in typeArr) {
+		var cls :Class  = o.cls  as Class;
+		
+		if ($self is cls) {
+			_selfType = o.type as String;
+			
+			break;
+		}
 	}
 	
 	return _selfType;
