@@ -205,23 +205,17 @@ function get $owner():* {
 	 * FighterAttacker 的 owner 可能是 FighterMain Assister
 	 */
 	
-	if ($self is FighterMain) {
-		_owner = $self;
-	}
-	else if ($self is Assister) {
-		_owner = $self.getOwner();
-	}
-	else if ($self is Bullet) {
-		tOwner = $self.owner;
-		
-		if (tOwner is FighterMain) {
-			_owner = tOwner;
-		}
-		else if (tOwner is Assister) {
-			_owner = tOwner.getOwner();
-		}
-		else if (tOwner is FighterAttacker) {
-			tOwner = tOwner.getOwner();
+	switch (_getSelfType()) {
+		case _TYPE_FIGHTER_MAIN:
+			_owner = $self;
+			
+			break;
+		case _TYPE_ASSISTER:
+			_owner = $self.getOwner();
+			
+			break;
+		case _TYPE_BULLET:
+			tOwner = $self.owner;
 			
 			if (tOwner is FighterMain) {
 				_owner = tOwner;
@@ -229,17 +223,29 @@ function get $owner():* {
 			else if (tOwner is Assister) {
 				_owner = tOwner.getOwner();
 			}
-		}
-	}
-	else if ($self is FighterAttacker) {
-		tOwner = $self.getOwner();
-		
-		if (tOwner is FighterMain) {
-			_owner = tOwner;
-		}
-		else if (tOwner is Assister) {
-			_owner = tOwner.getOwner();
-		}
+			else if (tOwner is FighterAttacker) {
+				tOwner = tOwner.getOwner();
+				
+				if (tOwner is FighterMain) {
+					_owner = tOwner;
+				}
+				else if (tOwner is Assister) {
+					_owner = tOwner.getOwner();
+				}
+			}
+			
+			break;
+		case _TYPE_FIGHTER_ATTACKER:
+			tOwner = $self.getOwner();
+			
+			if (tOwner is FighterMain) {
+				_owner = tOwner;
+			}
+			else if (tOwner is Assister) {
+				_owner = tOwner.getOwner();
+			}
+			
+			break;
 	}
 	
 	return _owner;
