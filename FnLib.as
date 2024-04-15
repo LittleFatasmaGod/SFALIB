@@ -20,6 +20,7 @@
 
 // 最新地址
 // https://raw.githubusercontent.com/5DPLAY-Game-Studio/FnLib/main/FnLib.as
+// https://gitee.com/play5d_game_studio/fn-lib/raw/main/FnLib.as
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // 导入包
