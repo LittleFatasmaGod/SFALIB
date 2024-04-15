@@ -119,9 +119,19 @@ function _getSelfType():String {
 		return _selfType;
 	}
 	
-	_selfType = _TYPE_UNKNOWN;
+	_selfType = _getType($self);
 	
-	var typeArr:Array = [{
+	return _selfType;
+}
+
+/**
+ * 获取类型
+ * 
+ * @param sp 指定sp
+ * @return 返回类型
+ */
+function _getType(sp:*):String {
+	const TYPE_ARRAY:Array = [{
 			cls :  FighterMain, 
 			type: _TYPE_FIGHTER_MAIN
 		}, {
@@ -136,17 +146,19 @@ function _getSelfType():String {
 		}
 	];
 	
-	for each (var o:Object in typeArr) {
+	var type:String = _TYPE_UNKNOWN;
+	
+	for each (var o:Object in TYPE_ARRAY) {
 		var cls :Class  = o.cls  as Class;
 		
-		if ($self is cls) {
-			_selfType = o.type as String;
+		if (sp is cls) {
+			type = o.type as String;
 			
 			break;
 		}
 	}
 	
-	return _selfType;
+	return type;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
