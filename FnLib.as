@@ -37,9 +37,9 @@ import flash.utils.getDefinitionByName;
 
 const IS_PRINT:Boolean = false;
 
-const VERSION:String = "0.0.2";			// 版本
+const VERSION:String = "0.0.3";			// 版本
 const AUTHOR :String = "5dplay";		// 作者
-const DATE   :String = "2024.03.23";	// 日期
+const DATE   :String = "2024.04.15";	// 日期
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -229,32 +229,45 @@ function get $owner():* {
 		case _TYPE_BULLET:
 			tOwner = $self.owner;
 			
-			if (tOwner is FighterMain) {
-				_owner = tOwner;
-			}
-			else if (tOwner is Assister) {
-				_owner = tOwner.getOwner();
-			}
-			else if (tOwner is FighterAttacker) {
-				tOwner = tOwner.getOwner();
-				
-				if (tOwner is FighterMain) {
+			switch (_getType(tOwner)) {
+				case _TYPE_FIGHTER_MAIN:
 					_owner = tOwner;
-				}
-				else if (tOwner is Assister) {
+					
+					break;
+				case _TYPE_ASSISTER:
 					_owner = tOwner.getOwner();
-				}
+					
+					break;
+				case _TYPE_FIGHTER_ATTACKER:
+					tOwner = tOwner.getOwner();
+					
+					switch (_getType(tOwner)) {
+						case _TYPE_FIGHTER_MAIN:
+							_owner = tOwner;
+							
+							break;
+						case _TYPE_ASSISTER:
+							_owner = tOwner.getOwner();
+							
+							break;
+					}
+					
+					break;
 			}
 			
 			break;
 		case _TYPE_FIGHTER_ATTACKER:
 			tOwner = $self.getOwner();
 			
-			if (tOwner is FighterMain) {
-				_owner = tOwner;
-			}
-			else if (tOwner is Assister) {
-				_owner = tOwner.getOwner();
+			switch (_getType(tOwner)) {
+				case _TYPE_FIGHTER_MAIN:
+					_owner = tOwner;
+					
+					break;
+				case _TYPE_ASSISTER:
+					_owner = tOwner.getOwner();
+					
+					break;
 			}
 			
 			break;
