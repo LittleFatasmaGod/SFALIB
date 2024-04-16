@@ -288,7 +288,12 @@ function get $target():* {
 		return _target;
 	}
 	
-	_target = $owner.getCurrentTarget();
+	try {
+		_target = $owner.getCurrentTarget();
+	}
+	catch (e:Error) {
+		return null;
+	}
 	
 	return _target as FighterMain;
 }
