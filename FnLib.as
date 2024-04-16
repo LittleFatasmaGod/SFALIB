@@ -149,6 +149,7 @@ function _getType(sp:*):String {
 	
 	var type:String = _TYPE_UNKNOWN;
 	
+	// 遍历是否存在当前的类型
 	for each (var o:Object in TYPE_ARRAY) {
 		var cls :Class  = o.cls  as Class;
 		
