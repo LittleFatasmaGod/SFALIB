@@ -226,59 +226,59 @@ function get $owner():* {
 	 */
 	
 	switch (_getSelfType()) {
+	case _TYPE_FIGHTER_MAIN:
+		_owner = $self;
+		
+		break;
+	case _TYPE_ASSISTER:
+		_owner = $self.getOwner();
+		
+		break;
+	case _TYPE_BULLET:
+		tOwner = $self.owner;
+		
+		switch (_getType(tOwner)) {
 		case _TYPE_FIGHTER_MAIN:
-			_owner = $self;
+			_owner = tOwner;
 			
 			break;
 		case _TYPE_ASSISTER:
-			_owner = $self.getOwner();
-			
-			break;
-		case _TYPE_BULLET:
-			tOwner = $self.owner;
-			
-			switch (_getType(tOwner)) {
-				case _TYPE_FIGHTER_MAIN:
-					_owner = tOwner;
-					
-					break;
-				case _TYPE_ASSISTER:
-					_owner = tOwner.getOwner();
-					
-					break;
-				case _TYPE_FIGHTER_ATTACKER:
-					tOwner = tOwner.getOwner();
-					
-					switch (_getType(tOwner)) {
-						case _TYPE_FIGHTER_MAIN:
-							_owner = tOwner;
-							
-							break;
-						case _TYPE_ASSISTER:
-							_owner = tOwner.getOwner();
-							
-							break;
-					}
-					
-					break;
-			}
+			_owner = tOwner.getOwner();
 			
 			break;
 		case _TYPE_FIGHTER_ATTACKER:
-			tOwner = $self.getOwner();
+			tOwner = tOwner.getOwner();
 			
 			switch (_getType(tOwner)) {
-				case _TYPE_FIGHTER_MAIN:
-					_owner = tOwner;
-					
-					break;
-				case _TYPE_ASSISTER:
-					_owner = tOwner.getOwner();
-					
-					break;
+			case _TYPE_FIGHTER_MAIN:
+				_owner = tOwner;
+				
+				break;
+			case _TYPE_ASSISTER:
+				_owner = tOwner.getOwner();
+				
+				break;
 			}
 			
 			break;
+		}
+		
+		break;
+	case _TYPE_FIGHTER_ATTACKER:
+		tOwner = $self.getOwner();
+		
+		switch (_getType(tOwner)) {
+		case _TYPE_FIGHTER_MAIN:
+			_owner = tOwner;
+			
+			break;
+		case _TYPE_ASSISTER:
+			_owner = tOwner.getOwner();
+			
+			break;
+		}
+		
+		break;
 	}
 	
 	return _owner;
