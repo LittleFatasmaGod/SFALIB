@@ -22,6 +22,12 @@
 // https://raw.githubusercontent.com/5DPLAY-Game-Studio/FnLib/main/FnLib.as
 // https://gitee.com/play5d_game_studio/fn-lib/raw/main/FnLib.as
 
+// 使用方法：
+// 确保 FnLib.as 文件放在 fla 文件同级目录下，
+// 在 人物/辅助/独立道具/飞行道具 第一帧，
+// 加入 include "FnLib.as" 语句，
+// 即可在源文件中使用本文件提供的快捷访问属性。
+
 //////////////////////////////////////////////////////////////////////////////////////////
 // 导入包
 
