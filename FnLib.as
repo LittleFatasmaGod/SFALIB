@@ -316,12 +316,10 @@ function get $target():* {
  * @return 返回自身名称
  */
 function get $name():String {
-	if (!$self) {
-		return _NOT_APPLICABLE;
-	}
-	
 	try {
-		return $self.getDisplay().name;
+		if ($self) {
+			return $self.getDisplay().name;
+		}
 	}
 	catch (e:Error) {}
 	
