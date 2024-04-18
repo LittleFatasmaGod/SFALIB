@@ -309,7 +309,12 @@ function get $name():String {
 		return _NOT_APPLICABLE;
 	}
 	
-	return $self.getDisplay().name;
+	try {
+		return $self.getDisplay().name;
+	}
+	catch (e:Error) {}
+	
+	return _NOT_APPLICABLE;
 }
 
 /**
