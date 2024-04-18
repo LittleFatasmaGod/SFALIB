@@ -225,29 +225,48 @@ function get $owner():* {
 	 * FighterAttacker 的 owner 可能是 FighterMain Assister
 	 */
 	
-	switch (_getSelfType()) {
-	case _TYPE_FIGHTER_MAIN:
-		_owner = $self;
-		
-		break;
-	case _TYPE_ASSISTER:
-		_owner = $self.getOwner();
-		
-		break;
-	case _TYPE_BULLET:
-		tOwner = $self.owner;
-		
-		switch (_getType(tOwner)) {
+	try {
+		switch (_getSelfType()) {
 		case _TYPE_FIGHTER_MAIN:
-			_owner = tOwner;
+			_owner = $self;
 			
 			break;
 		case _TYPE_ASSISTER:
-			_owner = tOwner.getOwner();
+			_owner = $self.getOwner();
+			
+			break;
+		case _TYPE_BULLET:
+			tOwner = $self.owner;
+			
+			switch (_getType(tOwner)) {
+			case _TYPE_FIGHTER_MAIN:
+				_owner = tOwner;
+				
+				break;
+			case _TYPE_ASSISTER:
+				_owner = tOwner.getOwner();
+				
+				break;
+			case _TYPE_FIGHTER_ATTACKER:
+				tOwner = tOwner.getOwner();
+				
+				switch (_getType(tOwner)) {
+				case _TYPE_FIGHTER_MAIN:
+					_owner = tOwner;
+					
+					break;
+				case _TYPE_ASSISTER:
+					_owner = tOwner.getOwner();
+					
+					break;
+				}
+				
+				break;
+			}
 			
 			break;
 		case _TYPE_FIGHTER_ATTACKER:
-			tOwner = tOwner.getOwner();
+			tOwner = $self.getOwner();
 			
 			switch (_getType(tOwner)) {
 			case _TYPE_FIGHTER_MAIN:
@@ -262,23 +281,9 @@ function get $owner():* {
 			
 			break;
 		}
-		
-		break;
-	case _TYPE_FIGHTER_ATTACKER:
-		tOwner = $self.getOwner();
-		
-		switch (_getType(tOwner)) {
-		case _TYPE_FIGHTER_MAIN:
-			_owner = tOwner;
-			
-			break;
-		case _TYPE_ASSISTER:
-			_owner = tOwner.getOwner();
-			
-			break;
-		}
-		
-		break;
+	}
+	catch (e:Error) {
+		return null;
 	}
 	
 	return _owner;
