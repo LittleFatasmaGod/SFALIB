@@ -157,7 +157,7 @@ function _getType(sp:*):String {
 	
 	// 遍历是否存在当前的类型
 	for each (var o:Object in TYPE_ARRAY) {
-		var cls :Class  = o.cls  as Class;
+		var cls :Class  = o.cls as Class;
 		
 		if (sp is cls) {
 			type = o.type as String;
@@ -187,22 +187,25 @@ function get $self():* {
 		return _self;
 	}
 	
-	var gameStage:* = GameCtrl.I.gameState;
-	var gameSprites:* = gameStage.getGameSprites();
-	
-	for each (var sp:* in gameSprites) {
-		var d:DisplayObject = sp.getDisplay();
+	try {
+		var gameStage  :* = GameCtrl.I.gameState;
+		var gameSprites:* = gameStage.getGameSprites();
 		
-		// 等于 this 可获取 FighterAttacker Bullet Assister
-		// 等于 this.parent 可获取 FighterMain
-		if (d == _this || d == _this.parent) {
-			_self = sp;
+		for each (var sp:* in gameSprites) {
+			var d:DisplayObject = sp.getDisplay();
 			
-			break;
+			// 等于 this 可获取 FighterAttacker Bullet Assister
+			// 等于 this.parent 可获取 FighterMain
+			if (d == _this || d == _this.parent) {
+				_self = sp;
+				
+				return _self;
+			}
 		}
 	}
+	catch (e:Error) {}
 	
-	return _self;
+	return null;
 }
 
 var _owner:* = null;
