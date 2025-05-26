@@ -142,6 +142,26 @@ function _print():void {
 //////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * 指定属性是否存在
+ * @param obj 目标对象 (任意属性)
+ * @param property 属性名 (String 类型)
+ * @param type 类型 (任意类型) 默认: null
+ * @return 返回指定属性是否存在的布尔值 (Boolean 类型)
+ */
+function hasProperty(obj:*, property:String, type:* = null):Boolean {
+	try {
+		var IS_TYPE:Boolean = type ? obj[property] is type : true;
+
+        return obj.hasOwnProperty(property) && IS_TYPE;
+    } catch (e:Error) {
+        errorMsg("SFALIB.hasProperty:: " + e.message);
+		return false;
+    }
+
+    return false;
+}
+
+/**
  * 检测一个类是否存在。
  * @param className 类的完全限定名（包括包名）。
  * @return 返回类是否存在的布尔值 (Boolean 类型)
@@ -651,7 +671,7 @@ function getCtrl(ctrlerName:String, ctrlerType:Boolean = true):* {
 				break;
 				case "fighterMC":
 				case "fmc":
-				 result = $self.getCtrler().getMcCtrl().getFighterMC();
+				 result = $self.getMC();
 				break;
 				case "fighterBuffCtrler":
 				case "bc":
@@ -713,7 +733,7 @@ function getCtrl(ctrlerName:String, ctrlerType:Boolean = true):* {
 			  break;
 			  case "target_fighterMC":
 			  case "tfmc":
-			   result = $target.getCtrler().getMcCtrl().getFighterMC();
+			   result = $target.getMC();
 			  break;
 			  case "target_fighterBuffCtrler":
 			  case "tbc":
@@ -806,6 +826,7 @@ function getCtrl(ctrlerName:String, ctrlerType:Boolean = true):* {
 				case "gameMode":
 				case "mode":
 				 result = getClass("data.GameMode");
+				break; 
 				case "gameInputer":
 				case "input":
 				 result = getClass("input.GameInputer");
@@ -1042,7 +1063,7 @@ function getCtrl(ctrlerName:String, ctrlerType:Boolean = true):* {
 				break;
 				case "target_fighterMC":
 				case "tfmc":
-				 result = $target.getCtrler().getMcCtrl().getFighterMC();
+				 result = $target.getMC();
 				break;
 				case "target_fighterBuffCtrler":
 				case "tbc":
@@ -1133,6 +1154,7 @@ function getCtrl(ctrlerName:String, ctrlerType:Boolean = true):* {
 				case "gameMode":
 				case "mode":
 				 result = getClass("data.GameMode");
+				break; 
 				case "gameInputer":
 				case "input":
 				 result = getClass("input.GameInputer");
@@ -1354,7 +1376,7 @@ function getCtrl(ctrlerName:String, ctrlerType:Boolean = true):* {
 			  break;
 			  case "target_fighterMC":
 			  case "tfmc":
-			   result = $target.getCtrler().getMcCtrl().getFighterMC();
+			   result = $target.getMC();
 			  break;
 			  case "target_fighterBuffCtrler":
 			  case "tbc":
@@ -1447,6 +1469,7 @@ function getCtrl(ctrlerName:String, ctrlerType:Boolean = true):* {
 				case "gameMode":
 				case "mode":
 				 result = getClass("data.GameMode");
+				break; 
 				case "gameInputer":
 				case "input":
 				 result = getClass("input.GameInputer");
@@ -1665,7 +1688,7 @@ function getCtrl(ctrlerName:String, ctrlerType:Boolean = true):* {
 			  break;
 			  case "target_fighterMC":
 			  case "tfmc":
-			   result = $target.getCtrler().getMcCtrl().getFighterMC();
+			   result = $target.getMC();
 			  break;
 			  case "target_fighterBuffCtrler":
 			  case "tbc":
@@ -1758,6 +1781,7 @@ function getCtrl(ctrlerName:String, ctrlerType:Boolean = true):* {
 				case "gameMode":
 				case "mode":
 				 result = getClass("data.GameMode");
+				break; 
 				case "gameInputer":
 				case "input":
 				 result = getClass("input.GameInputer");
@@ -2106,10 +2130,10 @@ function get isTraningMode():Boolean {
 	try {
 		if (gameMode.currentMode == gameMode.TRAINING)
 			return true;
-		else if (gameMode.isTraining != null && gameMode.isTraining()) {
-			return true;
-		} else if (gameMode.isTrainingMode != null && gameMode.isTrainingMode())
-			return true;
+		else if (hasProperty(gameMode, "isTraining", Function)) {
+			return Boolean(gameMode.isTraining());
+		} else if (hasProperty(gameMode, "isTrainingMode", Function))
+			return Boolean(gameMode.isTrainingMode());
 	} catch (e:Error) {
 		return false;
       }
